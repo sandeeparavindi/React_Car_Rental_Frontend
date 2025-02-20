@@ -1,28 +1,44 @@
-import { Outlet } from "react-router"
-import { Sidebar } from "./Sidebar.tsx"
-import { useLocation } from "react-router"
+import { Outlet } from "react-router";
+import { Sidebar } from "./Sidebar.tsx";
+import { useLocation } from "react-router";
+import { useEffect, useState } from "react";
 
 export function RootLayout() {
-  const location = useLocation()
+    const location = useLocation();
+    const [dateTime, setDateTime] = useState(new Date());
 
-  const routeTitles: any = {
-    "/": "Home",
-    "/customer": "Customers Management",
-  }
+    useEffect(() => {
+        const interval = setInterval(() => setDateTime(new Date()), 1000);
+        return () => clearInterval(interval);
+    }, []);
 
-  const title = routeTitles[location?.pathname] || "Shop"
+    const routeTitles: Record<string, string> = {
+        "/": "HOME",
+        "/customer": "WELCOME TO CUSTOMER MANAGE",
+    };
 
-  return (
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex-1 flex flex-col transition-all duration-300">
-          <header className="bg-gradient-to-r from-gray-100 to-gray-300 text-black p-4 flex items-center">
-            <h1 className="text-xl font-semibold">{title}</h1>
-          </header>
-          <main className="p-4 flex-1 overflow-y-auto">
-            <Outlet />
-          </main>
+    const title = routeTitles[location?.pathname] || "Shop";
+
+    return (
+        <div className="flex h-screen bg-white">
+            <Sidebar />
+            <div className="flex-1 flex flex-col transition-all duration-300">
+                {/* Header Section */}
+                <header className="bg-gradient-to-r from-rose-100 to-white text-black p-4 flex items-center shadow-md">
+                    <h1 className="text-xl font-semibold text-rose-500 drop-shadow-[1px_1px_2px_white]">
+                        {title}
+                    </h1>
+                    {/* Common Date & Time*/}
+                    <span className="ml-auto text-sm text-rose-500 drop-shadow-[1px_1px_2px_white]">
+            {dateTime.toLocaleString()}
+          </span>
+                </header>
+
+                {/* Main Content */}
+                <main className="p-4 flex-1 overflow-y-auto">
+                    <Outlet />
+                </main>
+            </div>
         </div>
-      </div>
-  )
+    );
 }
