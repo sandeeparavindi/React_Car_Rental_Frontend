@@ -3,7 +3,7 @@ import { deleteCustomer, getCustomer, saveCustomer, updateCustomer } from "../re
 import { AppDispatch } from "../store/store.tsx";
 import { Customers } from "../models/Customers.ts";
 import { useDispatch, useSelector } from "react-redux";
-import { Trash2 } from "react-feather";
+import { Trash2, PlusCircle, Edit2 } from "react-feather";
 
 function Customer() {
   const dispatch = useDispatch<AppDispatch>();
@@ -76,78 +76,48 @@ function Customer() {
   };
 
   return (
-      <div className="p-6 bg-gradient-to-r from-blue-100 to-blue-300">
-        <div className="grid grid-cols-3 gap-4 bg-white p-6 rounded-xl shadow-xl mt-4">
-          {[
-            {label: "Customer ID", value: id, setter: setId, type: "text"},
-            {label: "Name", value: name, setter: setName, type: "text"},
-            {label: "Email", value: email, setter: setEmail, type: "email"},
-            {label: "Address", value: address, setter: setAddress, type: "text", autoComplete: "street-address"},
-            {label: "Phone", value: phone, setter: setPhone, type: "tel", pattern: "[0-9]{10}"}
-          ].map((field, index) => (
-              <div key={index} className="flex flex-col">
-                <label className="text-black font-bold text-sm mb-1">{field.label}</label>
-                <input
-                    type={field.type}
-                    value={field.value}
-                    onChange={(e) => field.setter(e.target.value)}
-                    className="p-2 bg-gray-200 rounded-lg shadow-sm focus:outline-none"
-                    autoComplete={field.autoComplete || "off"}
-                    pattern={field.pattern || undefined}
-                />
-              </div>
+      <div className="p-6 bg-rose-100 min-h-screen">
+        <div className="grid grid-cols-2 gap-4 bg-white p-6 rounded-xl shadow-xl">
+          {[{ placeholder: "Customer ID", value: id, setter: setId },
+            { placeholder: "Name", value: name, setter: setName },
+            { placeholder: "Email", value: email, setter: setEmail },
+            { placeholder: "Address", value: address, setter: setAddress },
+            { placeholder: "Phone", value: phone, setter: setPhone }].map((field, index) => (
+              <input
+                  key={index}
+                  type="text"
+                  placeholder={field.placeholder}
+                  value={field.value}
+                  onChange={(e) => field.setter(e.target.value)}
+                  className="p-3 bg-rose-50 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
+              />
           ))}
         </div>
-        <div className="flex justify-between">
-          <button
-              onClick={handleAdd}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md w-36 mt-6"
-          >
-            Add
+        <div className="flex gap-4 mt-6">
+          <button onClick={handleAdd} className="bg-rose-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 shadow-md hover:bg-rose-600">
+            <PlusCircle size={18} /> Add
           </button>
-        </div>
-        <div className="flex justify-end mt-4">
-          {isEditing ? (
-              <button onClick={handleUpdate}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md mr-2">Update</button>
-          ) : null}
           {isEditing && (
-              <button onClick={resetForm}
-                      className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg shadow-md">Cancel</button>
+              <button onClick={handleUpdate} className="bg-black text-white px-4 py-2 rounded-lg flex items-center gap-2 shadow-md hover:bg-gray-800">
+                <Edit2 size={18} /> Update
+              </button>
           )}
         </div>
-        <div className="mt-6">
-          <table className="w-full text-left border-collapse rounded-lg shadow-lg overflow-hidden">
-            <thead>
-            <tr className="bg-gradient-to-r from-blue-500 to-black text-white">
-              {["ID", "Name", "Email", "Address", "Phone", "Actions"].map((heading, index) => (
-                  <th key={index} className="px-6 py-3">{heading}</th>
-              ))}
-            </tr>
-            </thead>
-            <tbody>
-            {customers.map((customer) => (
-                <tr key={customer.CustomerID}
-                    className="bg-blue-100 border-b border-blue-300 hover:bg-blue-200 cursor-pointer"
-                    onClick={() => handleEdit(customer)}
-                >
-                  <td className="px-6 py-2">{customer.CustomerID}</td>
-                  <td className="px-6 py-2">{customer.Name}</td>
-                  <td className="px-6 py-2">{customer.Email}</td>
-                  <td className="px-6 py-2">{customer.Address}</td>
-                  <td className="px-6 py-2">{customer.Phone}</td>
-                  <td className="px-6 py-2 text-center">
-                    <button
-                        onClick={() => handleDelete(customer.CustomerID)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg shadow-md flex items-center gap-1"
-                    >
-                      <Trash2 size={16}/> Delete
-                    </button>
-                  </td>
-                </tr>
-            ))}
-            </tbody>
-          </table>
+        <div className="mt-6 grid grid-cols-3 gap-6">
+          {customers.map((customer) => (
+              <div key={customer.CustomerID} className="bg-white p-6 rounded-xl shadow-lg relative">
+                <h3 className="text-xl font-bold text-black mb-2">{customer.Name}</h3>
+                <p className="text-gray-700">Email: {customer.Email}</p>
+                <p className="text-gray-700">Address: {customer.Address}</p>
+                <p className="text-gray-700">Phone: {customer.Phone}</p>
+                <button onClick={() => handleDelete(customer.CustomerID)} className="absolute top-2 right-2 text-red-500 hover:text-red-700">
+                  <Trash2 size={18} />
+                </button>
+                <button onClick={() => handleEdit(customer)} className="mt-4 bg-black text-white px-3 py-1 rounded-lg flex items-center gap-2 shadow-md hover:bg-gray-800">
+                  <Edit2 size={16} /> Edit
+                </button>
+              </div>
+          ))}
         </div>
       </div>
   );
