@@ -24,7 +24,7 @@ export function RootLayout() {
             <Sidebar />
             <div className="flex-1 flex flex-col transition-all duration-300">
                 {/* Header Section */}
-                <header className="bg-gradient-to-r from-rose-100 to-white text-black p-4 flex items-center shadow-md">
+                <header className="bg-rose-50 text-black p-4 flex items-center shadow-md">
                     <h1 className="text-xl font-semibold text-rose-500 drop-shadow-[1px_1px_2px_white]">
                         {title}
                     </h1>
