@@ -1,12 +1,9 @@
 import { useState } from "react";
 import {
   Menu as MenuIcon,
-  Home,
-  Users,
-  Package,
-  ShoppingCart,
 } from "react-feather";
 import { Link } from "react-router";
+import {FaCar, FaCreditCard, FaHome, FaUsers} from "react-icons/fa";
 
 export function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -17,61 +14,41 @@ export function Sidebar() {
 
   return (
       <div
-          className={`bg-gradient-to-r from-gray-100 to-gray-300 text-white shadow-xl ${
+          className={`bg-black text-white shadow-2xl transition-all duration-300 ease-in-out h-screen flex flex-col ${
               isSidebarOpen ? "w-64" : "w-20"
-          } transition-all duration-300 ease-in-out h-screen flex flex-col`}
+          }`}
       >
         <div className="p-4 flex flex-col h-full">
           <button
               onClick={toggleSidebar}
-              className="text-white p-3 rounded-lg transition duration-300  hover:bg-white hover:text-black flex"
+              className="text-white p-3 rounded-lg transition duration-300 hover:bg-rose-600 hover:text-white shadow-lg"
           >
             <MenuIcon
-                className={`w-7 h-7 transform transition-transform ${
+                className={`w-7 h-7 transition-transform transform ${
                     isSidebarOpen ? "rotate-180" : ""
-                }`}
+                } hover:scale-110`}
             />
           </button>
           {isSidebarOpen && (
-              <h1 className="text-2xl font-bold text-white mt-4">STUDIO C</h1>
+              <h1 className="text-2xl font-bold text-rose-400 mt-4">CAR RENTAL</h1>
           )}
           <ul className="flex flex-col space-y-4 mt-6">
-            <li>
-              <Link
-                  to=""
-                  className="flex items-center space-x-4 p-3 rounded-lg bg-gradient-to-r from-blue-300 to-blue-200 transition duration-300 hover:bg-white hover:text-black"
-              >
-                <Home className="w-6 h-6" />
-                {isSidebarOpen && <span>Dashboard</span>}
-              </Link>
-            </li>
-            <li>
-              <Link
-                  to="customer"
-                  className="flex items-center space-x-4 p-3 rounded-lg bg-gradient-to-r from-blue-300 to-blue-200 transition duration-300 hover:bg-white hover:text-black"
-              >
-                <Users className="w-6 h-6" />
-                {isSidebarOpen && <span>Customer</span>}
-              </Link>
-            </li>
-            <li>
-              <Link
-                  to="item"
-                  className="flex items-center space-x-4 p-3 rounded-lg bg-gradient-to-r from-blue-300 to-blue-200 transition duration-300 hover:bg-white hover:text-black"
-              >
-                <Package className="w-6 h-6" />
-                {isSidebarOpen && <span>Item</span>}
-              </Link>
-            </li>
-            <li>
-              <Link
-                  to="place-order"
-                  className="flex items-center space-x-4 p-3 rounded-lg bg-gradient-to-r from-blue-300 to-blue-200 transition duration-300 hover:bg-white hover:text-black"
-              >
-                <ShoppingCart className="w-6 h-6" />
-                {isSidebarOpen && <span>Place Order</span>}
-              </Link>
-            </li>
+            {[
+              { to: "", icon: FaHome, label: "Dashboard" },
+              { to: "customer", icon: FaUsers, label: "Customer" },
+              { to: "car", icon: FaCar, label: "Car" },
+              { to: "booking", icon: FaCreditCard, label: "Booking" },
+            ].map(({ to, icon: Icon, label }) => (
+                <li key={to}>
+                  <Link
+                      to={to}
+                      className="flex items-center space-x-4 p-3 rounded-lg bg-white text-gray-900 shadow-md transition duration-300 hover:bg-gradient-to-r hover:from-rose-500 hover:to-rose-300 hover:text-white hover:shadow-xl"
+                  >
+                    <Icon className="w-6 h-6 text-gray-700 transition duration-300 group-hover:text-white" />
+                    {isSidebarOpen && <span>{label}</span>}
+                  </Link>
+                </li>
+            ))}
           </ul>
         </div>
       </div>
