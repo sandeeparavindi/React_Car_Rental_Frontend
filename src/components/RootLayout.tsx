@@ -15,6 +15,7 @@ export function RootLayout() {
     const routeTitles: Record<string, string> = {
         "/": "HOME",
         "/customer": "WELCOME TO CUSTOMER MANAGE",
+        "/car": "WELCOME TO CAR MANAGE",
     };
 
     const title = routeTitles[location?.pathname] || "Shop";

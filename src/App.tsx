@@ -4,6 +4,7 @@ import {createBrowserRouter, RouterProvider} from "react-router";
 import {RootLayout} from "./components/RootLayout.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Customer from "./pages/Customer.tsx";
+import Car from "./pages/Car.tsx";
 
 function App() {
     const routes = createBrowserRouter([
@@ -13,8 +14,7 @@ function App() {
             children: [
                 { path: "", element: <Dashboard /> },
                 { path: "/customer", element: <Customer /> },
-                // { path: "/item", element: <Item /> },
-                // { path: "/place-order", element: <PlaceOrder /> }
+                { path: "/car", element: <Car /> },
             ]
         }
     ])
