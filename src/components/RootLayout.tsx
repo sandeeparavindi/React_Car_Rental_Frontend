@@ -25,18 +25,14 @@ export function RootLayout() {
         <div className="flex h-screen bg-white">
             <Sidebar />
             <div className="flex-1 flex flex-col transition-all duration-300">
-                {/* Header Section */}
                 <header className="bg-white text-black p-4 flex items-center shadow-md">
                     <h1 className="text-xl font-semibold text-rose-500 drop-shadow-[1px_1px_2px_white]">
                         {title}
                     </h1>
-                    {/* Common Date & Time*/}
                     <span className="ml-auto text-sm text-rose-500 drop-shadow-[1px_1px_2px_white]">
             {dateTime.toLocaleString()}
           </span>
                 </header>
-
-                {/* Main Content */}
                 <main className="p-4 flex-1 overflow-y-auto">
                     <Outlet />
                 </main>
