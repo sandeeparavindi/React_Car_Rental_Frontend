@@ -8,7 +8,6 @@ const api = axios.create({
     baseURL: 'http://localhost:3000/car'
 });
 
-// Save a new car
 export const saveCar = createAsyncThunk(
     'car/saveCar',
     async (car: Car) => {
@@ -21,7 +20,6 @@ export const saveCar = createAsyncThunk(
     }
 );
 
-// Get all cars
 export const getCar = createAsyncThunk(
     'car/getCars',
     async () => {
@@ -34,7 +32,6 @@ export const getCar = createAsyncThunk(
     }
 );
 
-// Delete a car by ID
 export const deleteCar = createAsyncThunk(
     'car/deleteCar',
     async (id: number) => {
@@ -47,7 +44,6 @@ export const deleteCar = createAsyncThunk(
     }
 );
 
-// Update a car
 export const updateCar = createAsyncThunk(
     'car/updateCar',
     async (car: Car) => {
