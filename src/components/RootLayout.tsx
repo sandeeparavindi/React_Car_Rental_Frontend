@@ -16,6 +16,7 @@ export function RootLayout() {
         "/": "HOME",
         "/customer": "WELCOME TO CUSTOMER MANAGE",
         "/car": "WELCOME TO CAR MANAGE",
+        "/booking": "WELCOME TO BOOKING MANAGE",
     };
 
     const title = routeTitles[location?.pathname] || "Shop";
